@@ -134,6 +134,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		
 		extensionController.view.superview?.bringSubview(toFront: extensionController.view)
 		updateContentInsets()
+        self.scrollView.contentOffset = CGPoint(x: 0, y: -self.scrollView.contentInset.top)
 	}
 	
 	open func viewWillAppear(_ animated: Bool) {
@@ -340,7 +341,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
             scrollView.contentInset = contentInset
         }
         var scrollInsets = scrollView.scrollIndicatorInsets
-        scrollInsets.top = top
+        scrollInsets.top = self.navBarController.view.frame.origin.y + self.navBarController.view.frame.size.height + self.extensionController.view.frame.size.height
         scrollView.scrollIndicatorInsets = scrollInsets
         delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
